@@ -1,13 +1,30 @@
+// Inlogpagina
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CowLogo from '../components/CowLogo.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function LoginPage() {
+  const navigate = useNavigate()
+  const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
+    setError('')
+    setSubmitting(true)
+
+    try {
+      await login(email, password)
+      navigate('/dashboard')
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -31,7 +48,10 @@ function LoginPage() {
           autoComplete="current-password"
           required
         />
-        <button type="submit">Inloggen</button>
+        {error && <p className="form-error">{error}</p>}
+        <button type="submit" disabled={submitting}>
+          {submitting ? 'Bezig...' : 'Inloggen'}
+        </button>
       </form>
 
       <p className="login-footer">
