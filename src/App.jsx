@@ -1,3 +1,4 @@
+// Alle routes van de app
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout.jsx'
 import GuestRoute from './components/GuestRoute.jsx'
@@ -15,11 +16,13 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Login en register — alleen voor gasten */}
         <Route element={<GuestRoute />}>
           <Route index element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
 
+        {/* Ingelogde pagina's met gedeelde layout */}
         <Route element={<AppLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="account" element={<AccountPage />} />
@@ -30,6 +33,7 @@ function App() {
           <Route path="movie/:id" element={<MoviePage />} />
         </Route>
 
+        {/* Onbekende URL? Terug naar login */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
