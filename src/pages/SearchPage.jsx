@@ -53,6 +53,8 @@ function SearchPage() {
       <h1>Zoekresultaten voor &quot;{query}&quot;</h1>
       {loading && <p>Laden...</p>}
       {error && <p className="form-error">{error}</p>}
+      {!loading && !error && results.length === 0 && <p>Niks gevonden</p>}
+
       <ul className="search-results">
         {results.map((item) => {
           const title = item.title || item.name

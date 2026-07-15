@@ -90,7 +90,7 @@ function ListsPage() {
         const enriched = await Promise.all(
           items.map(async (item) => {
             const review = await getUserReview(token, userId, item.tmdbId)
-            return fetchMovieListItem(item.tmdbId, review?.score ?? 5)
+            return fetchMovieListItem(item.tmdbId, review?.score ?? null)
           }),
         )
 
