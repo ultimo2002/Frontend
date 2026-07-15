@@ -1,0 +1,163 @@
+{
+  "name": "MooVee",
+  "description": "Lijsten en reviews voor het MooVee filmplatform",
+  "collections": [
+    {
+      "name": "userLists",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "listId",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "min": 1,
+          "max": 100
+        }
+      ],
+      "permissions": {
+        "GET": ["user", "admin"],
+        "POST": ["user", "admin"],
+        "PUT": ["user", "admin"],
+        "PATCH": ["user", "admin"],
+        "DELETE": ["user", "admin"]
+      }
+    },
+    {
+      "name": "lists",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "listId",
+          "type": "reference:userLists",
+          "required": true
+        },
+        {
+          "name": "tmdbId",
+          "type": "number",
+          "required": true
+        }
+      ],
+      "permissions": {
+        "GET": ["user", "admin"],
+        "POST": ["user", "admin"],
+        "PUT": ["user", "admin"],
+        "PATCH": ["user", "admin"],
+        "DELETE": ["user", "admin"]
+      }
+    },
+    {
+      "name": "reviews",
+      "fields": [
+        {
+          "name": "id",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "tmdbId",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "score",
+          "type": "number",
+          "required": true,
+          "min": 1,
+          "max": 10
+        },
+        {
+          "name": "review",
+          "type": "string",
+          "required": false,
+          "max": 1000
+        }
+      ],
+      "permissions": {
+        "GET": ["anonymous", "user", "admin"],
+        "POST": ["user", "admin"],
+        "PUT": ["user", "admin"],
+        "PATCH": ["user", "admin"],
+        "DELETE": ["user", "admin"]
+      }
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@movieapp.nl",
+      "password": "admin123",
+      "roles": ["admin"]
+    },
+    {
+      "email": "timo@movieapp.nl",
+      "password": "movie123",
+      "roles": ["user"]
+    }
+  ],
+  "data": {
+    "userLists": [
+      {
+        "id": 1,
+        "userId": "timo@movieapp.nl",
+        "listId": 100,
+        "name": "Gezien"
+      },
+      {
+        "id": 2,
+        "userId": "timo@movieapp.nl",
+        "listId": 101,
+        "name": "Nog kijken"
+      }
+    ],
+    "lists": [
+      {
+        "id": 1,
+        "listId": 100,
+        "tmdbId": 1275779
+      },
+      {
+        "id": 2,
+        "listId": 101,
+        "tmdbId": 1315772
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "userId": "timo@movieapp.nl",
+        "tmdbId": 1275779,
+        "score": 5,
+        "review": "Hou niet van Minions."
+      },
+      {
+        "id": 2,
+        "userId": "timo@movieapp.nl",
+        "tmdbId": 1315772,
+        "score": 9,
+        "review": "Aliens!?"
+      }
+    ]
+  }
+}
