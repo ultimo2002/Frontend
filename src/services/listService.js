@@ -1,6 +1,8 @@
 // Alles rond lijsten: aanmaken, films toevoegen, verwijderen
 import { authenticatedRequest } from './api.js'
 
+const DUPLICATE_LIST_NAME_ERROR = 'Lijst bestaat al'
+
 function asArray(data) {
   return Array.isArray(data) ? data : []
 }
@@ -30,12 +32,27 @@ export async function fetchUserLists(token, userId) {
   return allLists.filter((list) => String(list.userId) === String(userId))
 }
 
+// Lijstnamen moeten uniek zijn per gebruiker
+async function assertUniqueListName(token, userId, name, excludeUserListId = null) {
+  const trimmedName = name.trim()
+  const userLists = await fetchUserLists(token, userId)
+  const exists = userLists.some(
+    (list) => list.name === trimmedName && list.id !== excludeUserListId,
+  )
+
+  if (exists) {
+    throw new Error(DUPLICATE_LIST_NAME_ERROR)
+  }
+}
+
 export async function fetchListItems(token, userListId) {
   const data = await authenticatedRequest(`/api/userLists/${userListId}/lists`, token)
   return asArray(data)
 }
 
 export async function createUserList(token, { userId, listId, name }) {
+  await assertUniqueListName(token, userId, name)
+
   const existing = await fetchAllUserLists(token)
 
   return authenticatedRequest('/api/userLists', token, {
@@ -50,6 +67,15 @@ export async function createUserList(token, { userId, listId, name }) {
 }
 
 export async function updateUserList(token, id, updates) {
+  if (updates.name) {
+    const allLists = await fetchAllUserLists(token)
+    const current = allLists.find((list) => list.id === id)
+
+    if (current) {
+      await assertUniqueListName(token, current.userId, updates.name, id)
+    }
+  }
+
   return authenticatedRequest(`/api/userLists/${id}`, token, {
     method: 'PATCH',
     body: JSON.stringify(updates),

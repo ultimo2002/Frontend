@@ -26,10 +26,13 @@ function FilmListItem({ film, onRemove }) {
         </Link>
         <span>{film.director || '...'}</span>
       </div>
-      <div className="film-card__score">
-        <span className="film-card__star">★</span>
-        <span>{film.score}</span>
-      </div>
+      {/* Alleen tonen als de gebruiker een score heeft gegeven */}
+      {film.score != null && (
+        <div className="film-card__score">
+          <span className="film-card__star">★</span>
+          <span>{film.score}</span>
+        </div>
+      )}
       <button
         type="button"
         className="film-card__remove"
