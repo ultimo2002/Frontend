@@ -1,8 +1,13 @@
+// Startpagina na inloggen — navigatie en zoekbalk
+import DashboardNav from '../components/DashboardNav.jsx'
+import SearchBar from '../components/SearchBar.jsx'
+
 function DashboardPage() {
   return (
     <section className="dashboard-page">
       <div className="dashboard-page__content">
-        <h1>Dashboard</h1>
+        <DashboardNav />
+        <SearchBar />
       </div>
     </section>
   )

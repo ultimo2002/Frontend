@@ -4,7 +4,9 @@ import GuestRoute from './components/GuestRoute.jsx'
 import AccountPage from './pages/AccountPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
+import MoviePage from './pages/MoviePage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
+import SearchPage from './pages/SearchPage.jsx'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="account" element={<AccountPage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="movie/:id" element={<MoviePage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
