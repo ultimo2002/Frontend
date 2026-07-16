@@ -7,8 +7,8 @@ import { useAuth } from '../context/AuthContext.jsx'
 function LoginPage() {
   const navigate = useNavigate()
   const { login } = useAuth()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail]= useState('')
+  const [password, setPassword]= useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -17,22 +17,22 @@ function LoginPage() {
     setError('')
     setSubmitting(true)
 
-    try {
-      await login(email, password)
+    try {await login(email, password)
       navigate('/dashboard')
     } catch (err) {
       setError(err.message)
-    } finally {
-      setSubmitting(false)
+    } finally {setSubmitting(false)
     }
   }
 
   return (
+      //invoervelden met logo
     <div className="login-page login-page--standalone">
       <CowLogo />
 
       <form className="login-form" onSubmit={handleSubmit}>
         <input
+
           type="email"
           placeholder="E-mailadres"
           value={email}

@@ -323,14 +323,6 @@ a {
   margin: 0 auto;
   width: 100%;
 }
-/*
-.lists-page__title {
-  margin: 0 0 1.5rem;
-  font-size: 2rem;
-  font-weight: 400;
-}
-
- */
 
 .lists-page__create {
   display: flex;
