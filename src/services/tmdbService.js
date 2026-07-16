@@ -1,4 +1,4 @@
-// TMDB API: films en acteurs zoeken, details ophalen
+// TMDB API: films en personen zoeken, details ophalen
 import { TMDB_API_BASE_URL, TMDB_API_KEY } from '../constants/api.js'
 
 async function tmdbRequest(path, params = {}) {
@@ -44,7 +44,7 @@ export async function getPersonById(personId) {
     append_to_response: 'movie_credits',
   })
 
-  // Veel acteurs hebben geen NL-biografie; dan Engels ophalen
+  // Veel personen hebben geen NL-biografie; dan Engels ophalen
   if (!person.biography?.trim()) {
     const english = await tmdbRequest(`/person/${personId}`, {
       language: 'en-US',

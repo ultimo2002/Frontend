@@ -1,4 +1,4 @@
-// Zoekresultaten — films en acteurs van TMDB
+// Zoekresultaten — films en personen van TMDB
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import BackButton from '../components/BackButton.jsx'
@@ -26,7 +26,7 @@ function SearchPage() {
         ])
         setResults([
           ...movies.results.map((item) => ({ ...item, type: 'film' })),
-          ...people.results.map((item) => ({ ...item, type: 'acteur' })),
+          ...people.results.map((item) => ({ ...item, type: 'persoon' })),
         ])
       } catch (err) {
         setError(err.message)
@@ -73,9 +73,8 @@ function SearchPage() {
           return (
             <li key={`person-${item.id}`} className="search-result">
               {poster && <img src={poster} alt="" className="search-result__poster" />}
-              <span className="search-result__type">Acteur</span>
-              {/* Acteurs nu ook doorklikbaar naar /actor/:id */}
-              <Link to={`/actor/${item.id}`}>{title}</Link>
+              <span className="search-result__type">Persoon</span>
+              <Link to={`/person/${item.id}`}>{title}</Link>
             </li>
           )
         })}

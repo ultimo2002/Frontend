@@ -1,3 +1,4 @@
+// Persoonspagina — details en bekende films van TMDB
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton.jsx'
@@ -36,28 +37,28 @@ function getAge(value) {
   return age >= 0 ? age : null
 }
 
-function ActorPage() {
+function PersonPage() {
   const { id } = useParams()
-  const [actor, setActor] = useState(null)
+  const [person, setPerson] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
     let cancelled = false
 
-    async function loadActor() {
+    async function loadPerson() {
       setLoading(true)
       setError('')
 
       try {
         const data = await getPersonById(id)
         if (!cancelled) {
-          setActor(data)
+          setPerson(data)
         }
       } catch (err) {
         if (!cancelled) {
           setError(err.message)
-          setActor(null)
+          setPerson(null)
         }
       } finally {
         if (!cancelled) {
@@ -66,7 +67,7 @@ function ActorPage() {
       }
     }
 
-    loadActor()
+    loadPerson()
     return () => {
       cancelled = true
     }
@@ -76,42 +77,42 @@ function ActorPage() {
     return (
       <section className="page">
         <BackButton />
-        <p className="loading-message">Acteur laden...</p>
+        <p className="loading-message">Persoon laden...</p>
       </section>
     )
   }
 
-  if (!actor) {
+  if (!person) {
     return (
       <section className="page">
         <BackButton />
-        <p className="form-error">{error || 'Acteur niet gevonden.'}</p>
+        <p className="form-error">{error || 'Persoon niet gevonden.'}</p>
       </section>
     )
   }
 
-  const profile = getMoviePosterUrl(actor.profile_path, 'w342')
+  const profile = getMoviePosterUrl(person.profile_path, 'w342')
 
   // "Known for" ordenen op populariteit voelt het meest logisch voor gebruikers.
-  const knownFor = (actor.movie_credits?.cast || [])
+  const knownFor = (person.movie_credits?.cast || [])
     .filter((movie) => movie?.id && movie?.title)
     .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
     .slice(0, 8)
 
-  const age = getAge(actor.birthday)
+  const age = getAge(person.birthday)
 
   return (
-    <section className="actor-detail">
+    <section className="person-detail">
       <BackButton />
-      <div className="actor-detail__layout">
-        <aside className="actor-detail__sidebar">
+      <div className="person-detail__layout">
+        <aside className="person-detail__sidebar">
           {profile ? (
-            <img src={profile} alt={actor.name || ''} className="actor-detail__photo" />
+            <img src={profile} alt={person.name || ''} className="person-detail__photo" />
           ) : (
-            <div className="actor-detail__photo actor-detail__photo--placeholder">[FOTO]</div>
+            <div className="person-detail__photo person-detail__photo--placeholder">[FOTO]</div>
           )}
 
-          <div className="actor-detail__known-for">
+          <div className="person-detail__known-for">
             <h2>Known for:</h2>
             <ul>
               {knownFor.map((movie) => (
@@ -123,36 +124,36 @@ function ActorPage() {
           </div>
         </aside>
 
-        <div className="actor-detail__content">
-          <h1>{actor.name}</h1>
-          <p>{actor.biography?.trim() || 'Geen biografie beschikbaar.'}</p>
+        <div className="person-detail__content">
+          <h1>{person.name}</h1>
+          <p>{person.biography?.trim() || 'Geen biografie beschikbaar.'}</p>
 
-          <dl className="actor-detail__facts">
+          <dl className="person-detail__facts">
             <div>
               <dt>Birthday</dt>
               <dd>
-                {formatBirthday(actor.birthday)}
+                {formatBirthday(person.birthday)}
                 {age !== null ? ` (${age} years old)` : ''}
               </dd>
             </div>
             <div>
               <dt>Place of Birth</dt>
-              <dd>{actor.place_of_birth || '-'}</dd>
+              <dd>{person.place_of_birth || '-'}</dd>
             </div>
             <div>
               <dt>Also Known As</dt>
               <dd>
-                {actor.also_known_as?.length
-                  ? actor.also_known_as.join(', ')
+                {person.also_known_as?.length
+                  ? person.also_known_as.join(', ')
                   : '-'}
               </dd>
             </div>
           </dl>
         </div>
       </div>
-      <p className="actor-detail__id">ID: {id}</p>
+      <p className="person-detail__id">ID: {id}</p>
     </section>
   )
 }
 
-export default ActorPage
+export default PersonPage

@@ -230,6 +230,7 @@ function MoviePage() {
   const poster = getMoviePosterUrl(movie.poster_path, 'w500')
   const userScore = Math.round((movie.vote_average || 0) * 10)
   const cast = movie.credits?.cast?.slice(0, 6) || []
+  const director = movie.credits?.crew?.find((person) => person.job === 'Director')
 
   return (
     <section className="movie-detail">
@@ -282,15 +283,27 @@ function MoviePage() {
             <dt>Opbrengst</dt>
             <dd>{formatMoney(movie.revenue)}</dd>
           </div>
+          <div>
+            <dt>Regisseur</dt>
+            <dd>
+              {director ? (
+                <Link to={`/person/${director.id}`} className="movie-detail__cast-link">
+                  &gt;{director.name}
+                </Link>
+              ) : (
+                '-'
+              )}
+            </dd>
+          </div>
         </dl>
 
         <div className="movie-detail__cast">
-          <h2>Acteurs</h2>
+          <h2>Personen</h2>
           <ul>
             {cast.map((person, index) => (
               <li key={person.id} className={index === 0 ? 'movie-detail__cast--lead' : ''}>
-                {/* Cast-naam is klikbaar naar de nieuwe acteurspagina */}
-                <Link to={`/actor/${person.id}`} className="movie-detail__cast-link">
+                {/* Naam is klikbaar naar de persoonspagina */}
+                <Link to={`/person/${person.id}`} className="movie-detail__cast-link">
                   &gt; {person.name}
                 </Link>
               </li>
