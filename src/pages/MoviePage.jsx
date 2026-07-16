@@ -1,6 +1,6 @@
 // Filmpagina — details, lijsten, reviews en scores
 import { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { FAVORITES_LIST_NAME, SEEN_LIST_NAME, SYSTEM_LIST_NAMES } from '../constants/api.js'
@@ -278,7 +278,10 @@ function MoviePage() {
           <ul>
             {cast.map((person, index) => (
               <li key={person.id} className={index === 0 ? 'movie-detail__cast--lead' : ''}>
-                &gt; {person.name}
+                {/* Cast-naam is klikbaar naar de nieuwe acteurspagina */}
+                <Link to={`/actor/${person.id}`} className="movie-detail__cast-link">
+                  &gt; {person.name}
+                </Link>
               </li>
             ))}
           </ul>

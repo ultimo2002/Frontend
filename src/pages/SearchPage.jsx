@@ -70,12 +70,12 @@ function SearchPage() {
             )
           }
 
-          // Acteurpagina bestaat nog niet, dus alleen de naam tonen
           return (
             <li key={`person-${item.id}`} className="search-result">
               {poster && <img src={poster} alt="" className="search-result__poster" />}
               <span className="search-result__type">Acteur</span>
-              <strong>{title}</strong>
+              {/* Acteurs nu ook doorklikbaar naar /actor/:id */}
+              <Link to={`/actor/${item.id}`}>{title}</Link>
             </li>
           )
         })}

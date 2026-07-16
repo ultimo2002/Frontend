@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import AppLayout from './components/AppLayout.jsx'
 import GuestRoute from './components/GuestRoute.jsx'
 import AccountPage from './pages/AccountPage.jsx'
+import ActorPage from './pages/ActorPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import FavoritesPage from './pages/FavoritesPage.jsx'
 import ListsPage from './pages/ListsPage.jsx'
@@ -31,6 +32,7 @@ function App() {
           <Route path="favorites" element={<FavoritesPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="movie/:id" element={<MoviePage />} />
+          <Route path="actor/:id" element={<ActorPage />} />
         </Route>
 
         {/* Onbekende URL? Terug naar login */}

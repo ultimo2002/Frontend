@@ -40,7 +40,9 @@ export function getMovieCredits(movieId) {
 }
 
 export function getPersonById(personId) {
-  return tmdbRequest(`/person/${personId}`)
+  return tmdbRequest(`/person/${personId}`, {
+    append_to_response: 'movie_credits',
+  })
 }
 
 export function getMoviePosterUrl(posterPath, size = 'w342') {
