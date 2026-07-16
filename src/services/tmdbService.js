@@ -39,10 +39,20 @@ export function getMovieCredits(movieId) {
   return tmdbRequest(`/movie/${movieId}/credits`)
 }
 
-export function getPersonById(personId) {
-  return tmdbRequest(`/person/${personId}`, {
+export async function getPersonById(personId) {
+  const person = await tmdbRequest(`/person/${personId}`, {
     append_to_response: 'movie_credits',
   })
+
+  // Veel acteurs hebben geen NL-biografie; dan Engels ophalen
+  if (!person.biography?.trim()) {
+    const english = await tmdbRequest(`/person/${personId}`, {
+      language: 'en-US',
+    })
+    person.biography = english.biography
+  }
+
+  return person
 }
 
 export function getMoviePosterUrl(posterPath, size = 'w342') {
