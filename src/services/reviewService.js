@@ -39,10 +39,16 @@ export async function getMovieReviews(token, tmdbId) {
 }
 
 export async function saveReview(token, userId, tmdbId, { score, review }) {
+  const trimmedReview = review.trim()
+
+  if (!trimmedReview) {
+    throw new Error('Recensie mag niet leeg zijn.')
+  }
+
   const existing = await getUserReview(token, userId, tmdbId)
   const payload = {
     score: Number(score),
-    review: review.trim(),
+    review: trimmedReview,
   }
 
   let result

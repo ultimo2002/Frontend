@@ -105,6 +105,11 @@ function MoviePage() {
     setError('')
     setSuccess('')
 
+    if (!review.trim()) {
+      setError('Recensie mag niet leeg zijn.')
+      return
+    }
+
     try {
       await saveReview(token, userId, id, {
         score: Number(score),
