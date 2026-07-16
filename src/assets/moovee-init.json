@@ -86,7 +86,7 @@
           "type": "number",
           "required": true,
           "min": 1,
-          "max": 10
+          "max": 5
         },
         {
           "name": "review",
@@ -155,7 +155,7 @@
         "id": 2,
         "userId": "timo@movieapp.nl",
         "tmdbId": 1315772,
-        "score": 9,
+        "score": 5,
         "review": "Aliens!?"
       }
     ]

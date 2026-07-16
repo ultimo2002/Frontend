@@ -110,9 +110,15 @@ function MoviePage() {
       return
     }
 
+    const numericScore = Number(score)
+    if (!Number.isFinite(numericScore) || numericScore < 1 || numericScore > 5) {
+      setError('Geef een score van 1 tot 5')
+      return
+    }
+
     try {
       await saveReview(token, userId, id, {
-        score: Number(score),
+        score: numericScore,
         review: review.trim(),
       })
       await loadReviews()
@@ -335,7 +341,7 @@ function MoviePage() {
                 <input
                   type="number"
                   min="1"
-                  max="10"
+                  max="5"
                   value={score}
                   onChange={(e) => setScore(e.target.value)}
                 />
