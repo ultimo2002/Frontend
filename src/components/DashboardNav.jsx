@@ -33,7 +33,7 @@ function DashboardNav() {
             )}
             {item.icon === 'list' && (
               <span className="dashboard-nav__icon dashboard-nav__icon--list" aria-hidden="true">
-                1<br />2<br />3<br />4<br />5
+                1  - - - -<br />2  - - - -<br />3  - - - -<br />4  - - - -<br />5  - - - -
               </span>
             )}
             {item.icon === 'star' && (

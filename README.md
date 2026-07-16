@@ -1,6 +1,6 @@
 # MooVee
 
-Filmplatform voor de Frontend eindopdracht. Je kunt films en acteurs opzoeken, lijsten bijhouden en reviews schrijven.
+Filmplatform voor de Frontend eindopdracht. Je kunt films en personen opzoeken, lijsten bijhouden en reviews schrijven.
 
 ## Inhoudsopgave
 
@@ -43,7 +43,7 @@ npm run preview
 De app heeft vier onderdelen:
 
 1. Inloggen en registreren (NOVI API), routes `/` en `/register`
-2. Films en acteurs zoeken (TMDB), routes `/search` en `/movie/:id`
+2. Films en personen zoeken (TMDB), routes `/search`, `/movie/:id` en `/person/:id`
 3. Lijsten beheren (NOVI API), route `/lists`
 4. Reviews en scores (NOVI API), op de filmpagina
 
@@ -65,19 +65,19 @@ NOVI endpoints die ik gebruik: `POST /lijst`, `GET /lijst/[ID]`, `PUT /lijst/[ID
 
 ## Todo
 
-- [ ] Dev bypass uitzetten (`VITE_DEV_BYPASS_AUTH=false`) voor inleveren
+- [x] Dev bypass uitzetten (`VITE_DEV_BYPASS_AUTH=false`) voor inleveren
 
-- [ ] Lijsten koppelen aan NOVI API (aanmaken, ophalen, hernoemen, verwijderen)
-- [ ] Lijsten zoeken op naam
-- [ ] Films toevoegen aan en verwijderen uit lijsten
-- [ ] Favorietenlijst werkend maken
-- [ ] Gezien-lijst automatisch vullen bij review/score
-- [ ] Reviews bewerken en verwijderen op filmpagina
-- [ ] "Voeg toe aan lijst" knop werkend maken
-- [ ] Acteurpagina toevoegen (`/actor/:id`)
-- [ ] Mock data vervangen door echte API-data
-- [ ] Loading states en foutmeldingen overal afhandelen
-- [ ] Semantische HTML nalopen
+- [x] Lijsten koppelen aan NOVI API (aanmaken, ophalen, hernoemen, verwijderen)
+- [x] Lijsten zoeken op naam
+- [x] Films toevoegen aan en verwijderen uit lijsten
+- [x] Favorietenlijst werkend maken
+- [x] Gezien-lijst automatisch vullen bij review/score
+- [x] Reviews bewerken en verwijderen op filmpagina
+- [x] "Voeg toe aan lijst" knop werkend maken
+- [x] Persoonspagina toevoegen (`/person/:id`)
+- [x] Mock data vervangen door echte API-data
+- [x] Loading states en foutmeldingen overal afhandelen
+- [x] Semantische HTML nalopen
 - [ ] Responsive design testen op mobiel
 
 ### Documentatie
@@ -90,9 +90,9 @@ NOVI endpoints die ik gebruik: `POST /lijst`, `GET /lijst/[ID]`, `PUT /lijst/[ID
 
 ### Git
 
-- [ ] Project op public GitHub zetten
-- [ ] Minimaal 20 commits met duidelijke messages
-- [ ] Minimaal 5 pull requests mergen naar main
+- [x] Project op public GitHub zetten
+- [x] Minimaal 20 commits met duidelijke messages
+- [x] Minimaal 5 pull requests mergen naar main
 
 ## Inleveren
 

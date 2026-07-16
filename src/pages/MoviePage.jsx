@@ -1,6 +1,6 @@
 // Filmpagina — details, lijsten, reviews en scores
 import { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import BackButton from '../components/BackButton.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 import { FAVORITES_LIST_NAME, SEEN_LIST_NAME, SYSTEM_LIST_NAMES } from '../constants/api.js'
@@ -105,9 +105,20 @@ function MoviePage() {
     setError('')
     setSuccess('')
 
+    if (!review.trim()) {
+      setError('Recensie mag niet leeg zijn.')
+      return
+    }
+
+    const numericScore = Number(score)
+    if (!Number.isFinite(numericScore) || numericScore < 1 || numericScore > 5) {
+      setError('Geef een score van 1 tot 5')
+      return
+    }
+
     try {
       await saveReview(token, userId, id, {
-        score: Number(score),
+        score: numericScore,
         review: review.trim(),
       })
       await loadReviews()
@@ -219,6 +230,7 @@ function MoviePage() {
   const poster = getMoviePosterUrl(movie.poster_path, 'w500')
   const userScore = Math.round((movie.vote_average || 0) * 10)
   const cast = movie.credits?.cast?.slice(0, 6) || []
+  const director = movie.credits?.crew?.find((person) => person.job === 'Director')
 
   return (
     <section className="movie-detail">
@@ -271,14 +283,29 @@ function MoviePage() {
             <dt>Opbrengst</dt>
             <dd>{formatMoney(movie.revenue)}</dd>
           </div>
+          <div>
+            <dt>Regisseur</dt>
+            <dd>
+              {director ? (
+                <Link to={`/person/${director.id}`} className="movie-detail__cast-link">
+                  &gt;{director.name}
+                </Link>
+              ) : (
+                '-'
+              )}
+            </dd>
+          </div>
         </dl>
 
         <div className="movie-detail__cast">
-          <h2>Acteurs</h2>
+          <h2>Personen</h2>
           <ul>
             {cast.map((person, index) => (
               <li key={person.id} className={index === 0 ? 'movie-detail__cast--lead' : ''}>
-                &gt; {person.name}
+                {/* Naam is klikbaar naar de persoonspagina */}
+                <Link to={`/person/${person.id}`} className="movie-detail__cast-link">
+                  &gt; {person.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -327,7 +354,7 @@ function MoviePage() {
                 <input
                   type="number"
                   min="1"
-                  max="10"
+                  max="5"
                   value={score}
                   onChange={(e) => setScore(e.target.value)}
                 />

@@ -636,6 +636,15 @@ a {
   margin-bottom: 0.25rem;
 }
 
+.movie-detail__cast-link {
+  color: #1a5fb4;
+  text-decoration: none;
+}
+
+.movie-detail__cast-link:hover {
+  text-decoration: underline;
+}
+
 .movie-detail__cast--lead {
   color: #1a5fb4;
   font-weight: 600;
@@ -781,10 +790,16 @@ a {
 }
 
 .movie-detail__id {
-  text-align: right;
-  margin: 2rem 0 0;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  margin: 0;
   font-size: 0.875rem;
   color: #444;
+  background: #fff;
+  padding: 0.125rem 0.375rem;
+  border: 2px solid #000;
+  z-index: 10;
 }
 
 .search-results {
@@ -815,6 +830,110 @@ a {
   font-weight: 600;
 }
 
+.person-detail {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  width: 100%;
+}
+
+.person-detail__layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.person-detail__sidebar {
+  flex: 0 0 240px;
+}
+
+.person-detail__photo {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  border: 3px solid #000;
+  display: block;
+}
+
+.person-detail__photo--placeholder {
+  height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.person-detail__known-for h2 {
+  margin: 1rem 0 0.5rem;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.person-detail__known-for ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.person-detail__known-for li {
+  margin-bottom: 0.125rem;
+}
+
+.person-detail__known-for a {
+  color: #1a5fb4;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.person-detail__known-for a:hover {
+  text-decoration: underline;
+}
+
+.person-detail__content {
+  flex: 1;
+}
+
+.person-detail__content h1 {
+  margin: 0 0 1rem;
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.person-detail__content p {
+  margin-top: 0;
+  text-align: justify;
+}
+
+.person-detail__facts {
+  margin-top: 1.5rem;
+}
+
+.person-detail__facts div {
+  margin-bottom: 1rem;
+}
+
+.person-detail__facts dt {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.person-detail__facts dd {
+  margin: 0;
+}
+
+.person-detail__id {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  margin: 0;
+  font-size: 0.875rem;
+  color: #444;
+  background: #fff;
+  padding: 0.125rem 0.375rem;
+  border: 2px solid #000;
+  z-index: 10;
+}
+
 @media (max-width: 700px) {
   .lists-page__layout {
     flex-direction: column;
@@ -837,5 +956,15 @@ a {
   .movie-detail__poster {
     width: 100%;
     max-width: 280px;
+  }
+
+  .person-detail__layout {
+    flex-direction: column;
+  }
+
+  .person-detail__known-for a,
+  .person-detail__known-for h2,
+  .person-detail__content h1 {
+    font-size: 1.5rem;
   }
 }
