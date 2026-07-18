@@ -120,7 +120,10 @@ function ListsPage() {
     e.preventDefault()
 
     const name = newListName.trim()
-    if (!name) return
+    if (!name) {
+      setError('Vul een lijstnaam in.')
+      return
+    }
 
     setError('')
 

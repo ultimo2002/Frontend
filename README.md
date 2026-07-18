@@ -1,99 +1,105 @@
 # MooVee
 
-Filmplatform voor de Frontend eindopdracht. Je kunt films en personen opzoeken, lijsten bijhouden en reviews schrijven.
-
 ## Inhoudsopgave
 
-- [Installatie](#installatie)
-- [Functionaliteit](#functionaliteit)
+- [Inleiding](#inleiding)
+- [Screenshot](#screenshot)
+- [Gebruikte technieken](#gebruikte-technieken)
+- [Installatie en configuratie](#installatie-en-configuratie)
+- [Inloggen](#inloggen)
+- [npm-commando's](#npm-commando's)
 - [Projectmap](#projectmap)
-- [API keys](#api-keys)
-- [Todo](#todo)
-- [Inleveren](#inleveren)
+- [NOVI JSON-configuratie](#novi-json-configuratie)
 
-## Installatie
+## Inleiding
 
-Je hebt Node.js 18+ en npm nodig.
+MooVee is een IMDB-achtig filmplatform. Je kunt films en personen opzoeken, eigen lijsten bijhouden en reviews met scores schrijven.
+
+Belangrijkste functionaliteiten:
+
+1.	Gebruikers kunnen zich inloggen en registreren;
+2.	Gebruikers kunnen informatie ophalen over films en acteurs zowel op basis van naam als op basis van TMDB-ID.
+3.	Gebruikers kunnen films toevoegen aan een lijst, deze lijst een naam geven en de lijst zo terugvinden. Films die de gebruiker heeft gezien worden automatisch toegevoegd aan een ‘gezien’ lijst.
+4.	Gebruikers kunnen een film die ze hebben gezien een score en een review geven en aan ‘favorieten’ toevoegen.
+
+## Screenshot
+
+Loginpagina van MooVee:
+
+![Loginpagina van MooVee](./screenshot.png)
+
+## Gebruikte technieken
+
+MooVee is in **JavaScript** met **React**. Voor het bouwen en lokaal draaien gebruik ik **Vite**: dat start de development server en maakt de productiebuild.
+
+Voor navigatie tussen pagina’s gebruik ik **React Router**. De login-staat bewaar ik in **React Context**, zodat elke pagina kan zien of iemand is ingelogd. Het token zelf decodeer ik met **jwt-decode**.
+
+De styling is **CSS met Flexbox**, in wireframe-stijl 
+
+Voor data gebruik ik twee API’s:
+
+- **NOVI Dynamic API** voor inloggen, registreren, lijsten en reviews
+- **TMDB API** voor zoeken van films en personen en details ophalen
+
+## Installatie en configuratie
+
+Voor deze app heb je **Node.js 18+** nodig (met `npm`).
+
+1. Open de projectmap in een terminal.
+2. Installeer de dependencies:
 
 ```bash
 npm install
-cp .env.example .env
+```
+
+3. Zet het meegeleverde `.env`-bestand in de projectroot (naast `package.json`).  
+   **Je hoeft zelf geen API-keys aan te maken** — die zitten al in dat bestand.
+
+   Nodig zijn o.a. `VITE_NOVI_API_BASE_URL`, `VITE_NOVI_PROJECT_ID`, `VITE_TMDB_API_BASE_URL` en `VITE_TMDB_API_KEY`.
+
+4. Start de app:
+
+```bash
 npm run dev
 ```
 
-Zet je NOVI API-key en TMDB API-key in `.env`. Daarna kun je de app openen op http://localhost:3000.
+5. Open **http://localhost:3000** in je browser.
 
-Productiebuild:
+Voor een productiebuild: `npm run build`, daarna `npm run preview`.
 
-```bash
-npm run build
-npm run preview
-```
+## Inloggen
 
-### Overige commando's
+In de NOVI-config staan al testaccounts. Handigste voor nakijken:
 
-| Commando | Wat het doet |
-|----------|--------------|
-| `npm run dev` | Start development server met hot reload |
-| `npm run build` | Maakt productiebuild in `dist/` |
-| `npm run preview` | Preview van de productiebuild |
+- **E-mail:** `gast@moovee.nl`
+- **Wachtwoord:** `movie123`
 
-## Functionaliteit
 
-De app heeft vier onderdelen:
+Liever een eigen account? Dat kan via de registratiepagina (`/register`).
 
-1. Inloggen en registreren (NOVI API), routes `/` en `/register`
-2. Films en personen zoeken (TMDB), routes `/search`, `/movie/:id` en `/person/:id`
-3. Lijsten beheren (NOVI API), route `/lists`
-4. Reviews en scores (NOVI API), op de filmpagina
+## npm-commando's
+
+Naast `npm install` zijn dit de belangrijkste scripts:
+
+- `npm run dev` – start de development server (hot reload)
+- `npm run build` – maakt een productiebuild in de map `dist/`
+- `npm run preview` – toont die build lokaal, zodat je kunt controleren of alles goed werkt
 
 ## Projectmap
 
-- `src/components` - UI onderdelen
-- `src/pages` - pagina's
-- `src/context` - login state (React Context)
-- `src/hooks` - herbruikbare React hooks (bijv. `useNamedListFilms` voor Favorieten en Gezien)
-- `src/services` - fetch calls naar NOVI en TMDB
-- `src/assets/moovee-init.json` - NOVI configuratie
+Kort overzicht van wat waar staat:
 
-## API keys
+- `src/components` – herbruikbare UI-stukken
+- `src/pages` – de pagina’s zelf 
+- `src/context` – login-state
+- `src/hooks` – herbruikbare logica
+- `src/services` – alle fetch-calls naar NOVI en TMDB
+- `src/assets` – logo en de NOVI API JSON-config
 
-- NOVI: [documentatie](https://novi-backend-api-wgsgz.ondigitalocean.app/documentation/1-Overview)
-- TMDB: [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
+## NOVI JSON-configuratie
 
-NOVI endpoints die ik gebruik: `POST /lijst`, `GET /lijst/[ID]`, `PUT /lijst/[ID]`.
+Het configuratiebestand voor de NOVI Dynamic API staat hier:
 
-## Todo
+**`src/assets/moovee-init.json`**
 
-- [x] Dev bypass uitzetten (`VITE_DEV_BYPASS_AUTH=false`) voor inleveren
-
-- [x] Lijsten koppelen aan NOVI API (aanmaken, ophalen, hernoemen, verwijderen)
-- [x] Lijsten zoeken op naam
-- [x] Films toevoegen aan en verwijderen uit lijsten
-- [x] Favorietenlijst werkend maken
-- [x] Gezien-lijst automatisch vullen bij review/score
-- [x] Reviews bewerken en verwijderen op filmpagina
-- [x] "Voeg toe aan lijst" knop werkend maken
-- [x] Persoonspagina toevoegen (`/person/:id`)
-- [x] Mock data vervangen door echte API-data
-- [x] Loading states en foutmeldingen overal afhandelen
-- [x] Semantische HTML nalopen
-- [ ] Responsive design testen op mobiel
-
-### Documentatie
-
-- [ ] Screenshot toevoegen aan README
-- [ ] Testgebruiker documenteren (username + wachtwoord)
-- [ ] Functioneel ontwerp afronden (25+ eisen, use cases, wireframes, Figma)
-- [ ] Verantwoordingsdocument schrijven (5 keuzes, 5 limitaties)
-- [ ] NOVI JSON-config definitief maken en inleveren
-
-### Git
-
-- [x] Project op public GitHub zetten
-- [x] Minimaal 20 commits met duidelijke messages
-- [x] Minimaal 5 pull requests mergen naar main
-
-## Inleveren
-
-Broncode als ZIP, zonder `node_modules` en `.idea`. README meeleveren. NOVI API-key en JSON-config apart inleveren. Repository moet public op GitHub staan.
+Daarin staan de collecties, de testgebruikers en wat startdata.

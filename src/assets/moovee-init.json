@@ -111,7 +111,7 @@
       "roles": ["admin"]
     },
     {
-      "email": "timo@movieapp.nl",
+      "email": "gast@moovee.nl",
       "password": "movie123",
       "roles": ["user"]
     }
@@ -120,13 +120,13 @@
     "userLists": [
       {
         "id": 1,
-        "userId": "timo@movieapp.nl",
+        "userId": "gast@moovee.nl",
         "listId": 100,
         "name": "Gezien"
       },
       {
         "id": 2,
-        "userId": "timo@movieapp.nl",
+        "userId": "gast@moovee.nl",
         "listId": 101,
         "name": "Nog kijken"
       }
@@ -146,14 +146,14 @@
     "reviews": [
       {
         "id": 1,
-        "userId": "timo@movieapp.nl",
+        "userId": "gast@moovee.nl",
         "tmdbId": 1275779,
         "score": 5,
         "review": "Hou niet van Minions."
       },
       {
         "id": 2,
-        "userId": "timo@movieapp.nl",
+        "userId": "gast@moovee.nl",
         "tmdbId": 1315772,
         "score": 5,
         "review": "Aliens!?"
