@@ -34,7 +34,7 @@ MooVee is in **JavaScript** met **React**. Voor het bouwen en lokaal draaien geb
 
 Voor navigatie tussen pagina’s gebruik ik **React Router**. De login-staat bewaar ik in **React Context**, zodat elke pagina kan zien of iemand is ingelogd. Het token zelf decodeer ik met **jwt-decode**.
 
-De styling is **CSS met Flexbox**, in wireframe-stijl 
+De styling is **CSS met Flexbox**
 
 Voor data gebruik ik twee API’s:
 
@@ -53,9 +53,8 @@ npm install
 ```
 
 3. Zet het meegeleverde `.env`-bestand in de projectroot (naast `package.json`).  
-   **Je hoeft zelf geen API-keys aan te maken** — die zitten al in dat bestand.
 
-   Nodig zijn o.a. `VITE_NOVI_API_BASE_URL`, `VITE_NOVI_PROJECT_ID`, `VITE_TMDB_API_BASE_URL` en `VITE_TMDB_API_KEY`.
+   Nodig zijn `VITE_NOVI_API_BASE_URL`, `VITE_NOVI_PROJECT_ID`, `VITE_TMDB_API_BASE_URL` en `VITE_TMDB_API_KEY`.
 
 4. Start de app:
 
@@ -69,7 +68,7 @@ Voor een productiebuild: `npm run build`, daarna `npm run preview`.
 
 ## Inloggen
 
-In de NOVI-config staan al testaccounts. Handigste voor nakijken:
+In de NOVI-config staan al testaccounts:
 
 - **E-mail:** `gast@moovee.nl`
 - **Wachtwoord:** `movie123`
